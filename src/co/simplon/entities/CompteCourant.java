@@ -1,6 +1,6 @@
 package co.simplon.entities;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 public class CompteCourant extends Accounts {
 	 public static boolean bool=false;
 	
@@ -15,7 +15,7 @@ public class CompteCourant extends Accounts {
 		
 	}
 	public String toString() {
-		return super.toString()+" Balance: "+Balance+" decouvert: "+decouvert+" ]";
+		return super.toString()+" Balance: "+Balance+"<br> decouvert: "+decouvert+" ";
 	}
 	public void setDecouvert(int decouvert) {
 		this.decouvert=decouvert;

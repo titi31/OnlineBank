@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import co.simplon.entities.Accounts;
 import co.simplon.entities.User;
 public class UserDao extends Dao<User> {
-	public User isConnected(String name,String pass ) {
+	public User isValidLogin(String name,String pass ) {
 		String str = "select * from T_Users where nameUser=? AND passwordUser=?";
 		PreparedStatement ps;
 		User user = null;

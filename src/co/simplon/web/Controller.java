@@ -29,29 +29,25 @@ public class Controller extends HttpServlet {
 	}
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		 String login = request.getParameter( "txtLogin" );
          String password = request.getParameter( "txtPassword" );
          if ( login == null ) login = "";
          if ( password == null ) password = "";
-         //recuperer
+
          HttpSession session = request.getSession( true );
          session.setAttribute( "login", login );
-         session.setAttribute( "password", password );
-         
-       //  request.getRequestDispatcher( "/vue.jsp" ).forward( request, response );
-
-         response.setContentType( "text/html" );
+         session.setAttribute( "pass", password );
+   
+         //response.setContentType( "text/html" );
          request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
@@ -59,18 +55,25 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String login=request.getParameter("txtLogin");
-		String password=request.getParameter("txtPassword");
-		UserDao cd1=new UserDao();
-		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-		User c1=new User(login,password);
+	
+		String login = request.getParameter("txtLogin");
+		String password = request.getParameter("txtPassword");
+		UserDao userDao = new UserDao();
+		//response.setContentType("text/html");
+		//PrintWriter out=response.getWriter();
 		
-		if(cd1.isConnected(c1.getNameUser(), c1.getPasswordUser())!=null) {
-			out.println("ok");
+		User user = userDao.isValidLogin(login,password);	
+		
+		if( user != null) {
+			HttpSession session = request.getSession( true );
+			// request.getRequestDispatcher("model").forward(request, response);
+			request.getRequestDispatcher("/comptes.html").forward(request, response);
+			
+			String code=request.getParameter("code");
+			 //request.getRequestDispatcher("/vue.jsp").forward(request, response);
+			//if()
 		}else
-			doGet(request, response);
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
 }

@@ -1,5 +1,5 @@
 package co.simplon.entities;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ArrayList;
 public class CompteEpargne extends Accounts  {
 		public static boolean bool=false; 
@@ -14,7 +14,7 @@ public class CompteEpargne extends Accounts  {
 			
 		}
 		public String toString() {
-			return super.toString()+" Balance: "+Balance+" taux: "+taux+" ]";
+			return super.toString()+" Balance: "+Balance+"<br> taux: "+taux+" ";
 		}
 		public void setTaux(int taux) {
 			this.taux=taux;

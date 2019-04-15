@@ -1,6 +1,6 @@
 package co.simplon.entities;
 
-import java.util.Date;
+import java.sql.Date;
 public class Accounts {
     private int NumCt;
     private Date DateCreation;
@@ -11,7 +11,7 @@ public class Accounts {
     protected static Customers Customers;
     public Accounts(int numCpte, Date date,int Balance,String type, int IdCust) {
         this.NumCt = numCpte;
-        this.DateCreation = DateCreation;
+        this.DateCreation = date;
         this.Balance = Balance;
         this.type=type;
         this.IdCust = IdCust;
@@ -59,11 +59,18 @@ public class Accounts {
     public void setIdCust(int IdCust) {
         this.IdCust = IdCust;
     }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
 
 
     @Override
     public String toString() {
-        return "Account [NumCt=" + NumCt + "DateCreation=" + DateCreation + "Balance="+Balance + "IdCust=" + IdCust+"]";
+        return "NumCt: " + NumCt + "<br> DateCreation: " + DateCreation +"<br> type: "+type+ "<br> Balance: "+Balance + "<br> IdCust: " + IdCust+"<br>";
     }
 
 	private String DateCreation(String string, int i, int idCust2) {

@@ -1,0 +1,46 @@
+h1, h2, form {
+text-align: center;
+}
+
+h1 {
+	color: white;
+}
+
+img{
+display:block;
+width:auto;
+margin-left:auto;
+margin-right:auto;
+}
+
+label {
+	display: inline-block;
+	width: 120px;
+	text-align: left;
+}
+
+body {
+background-image: url("https://www.numerama.com/content/uploads/2017/04/earth-google.jpeg");
+  margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
+  transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
+}
+
+.bouton {
+	padding:6px 0 6px 0;
+	font:bold 13px Arial;
+	background:#478bf9;
+	color:#fff;
+	border-radius:2px;
+	width:100px;
+	border:none;
+}
+
+
+
+/* form starting stylings ------------------------------- */
+
+input         {
+  font-size:18px;
+  width:300px;
+}
+input:focus { outline:none; }

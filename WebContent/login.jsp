@@ -5,23 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>4 Fantastic Bank</title>
+<link rel="icon" href="favicone.png" />
+ <link rel='stylesheet' type='text/css' href='style.css' />
+ 
 </head>
 <body>
-		<% 
+		
       
-       
-        out.println( "        <h1>Bonjour et Bienvenue veuillez vous identifier</h1>" );
-        out.println( "        <h2> " + new Date() + "</h2>" );
+        <img src="4FantastiquesBank.png">
+                <h1>Veuillez vous identifier</h1>
+ <!--     <%   out.println( "        <h2> " + new Date() + "</h2>" ); %>  -->
         
-        out.println( "        <form method='POST' action='controller'>" );
-        out.println( "            <label for='txtLogin'>Login :</label>" ); 
-        out.println( "            <input id='txtLogin' name='txtLogin' type='text' value='login' autofocus /><br/>" );
-        out.println( "            <label for='txtPassword'>Password :</label>" ); 
-        out.println( "            <input name='txtPassword' type='password' value='password' /><br/>" );
-        out.println( "            <br/>" );
-        out.println( "            <input name='btnConnect' type='submit' value='envoyer' /><br/>" );
-        out.println( "        </form>" );
-		%>
+        <form method='POST' action='controller'>
+        <label for='txtLogin'>Login :</label>
+        <input id='txtLogin' name='txtLogin' type='text' value=${login} autofocus /><br/>
+         <label for='txtPassword'>Password :</label>
+        <input name='txtPassword' type='password' value=${pass} /><br/>
+         <br/>
+        <input name='btnConnect' type='submit' value='envoyer' class='bouton' /><br/>
+        </form>
+		
 </body>
 </html>

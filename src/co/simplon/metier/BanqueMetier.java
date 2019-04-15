@@ -16,12 +16,15 @@ public class BanqueMetier implements IBanqueMetier {
 	static AccountDao Account=new AccountDao();
 
 	
-	public static void consulterAccounts(Accounts Accounts) {
-		System.out.println("Balance: "+Accounts.getBalance()+"compte :"+Account.find(Accounts.getNumCt()));
+	public Accounts consulterAccounts(int code) {
+		//System.out.println("Balance: "+Accounts.getBalance()+"compte :"+Account.find(Accounts.getNumCt()));
+		Account.find(code);
+		Accounts account = null; 
+		return account;
 		
 	}
 	
-	public static void retirer(Accounts Accounts,int argent){
+	public void retirer(Accounts Accounts,int argent){
 		
 		if(argent<400) {
 		
@@ -38,7 +41,7 @@ public class BanqueMetier implements IBanqueMetier {
 			
 		//listOp.add(retire);
 	}
-	public static void verser(Accounts Accounts,int argent) {
+	public  void verser(Accounts Accounts,int argent) {
 		Accounts.setBalance(Accounts.getBalance()+argent);
 		Account.update(Accounts);
 		
@@ -49,7 +52,7 @@ public class BanqueMetier implements IBanqueMetier {
 		
 		
 	}
-	public static void virement(Accounts Accounts1,Accounts Accounts2,int argent,int NumCt) {
+	public void virement(Accounts Accounts1,Accounts Accounts2,int argent,int NumCt) {
 		double Balance1=Accounts1.getBalance()-argent;
 		double Balance2=Accounts2.getBalance()+argent;
 		
@@ -63,7 +66,7 @@ public class BanqueMetier implements IBanqueMetier {
 		//listOp.add(virement);
 		
 	}
-	public static ArrayList<Operations> listOperations(Accounts Accounts){
+	public ArrayList<Operations> listOperations(Accounts Accounts){
 		
 		
 		return listOp;
