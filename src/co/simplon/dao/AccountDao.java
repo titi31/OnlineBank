@@ -11,38 +11,10 @@ import java.util.Date;
 import co.simplon.entities.CompteCourant;
 import co.simplon.entities.CompteEpargne;
 public class AccountDao extends Dao<Accounts> {
-	public Accounts afficheC(int id,String id2) {
-		String strE = "select * from T_Accounts  inner join T_Users on T_Users.IdCust=T_Accounts.IdCust where NumCt=? and T_Users.nameUser=?";
-		
-		PreparedStatement ps;
-		PreparedStatement ps1;
-		Accounts Account = null;
-		try(Connection connection = DriverManager.getConnection( dbURL, dbLogin, dbPassword )) {
-			ps = connection.prepareStatement(strE);
-			ps.setInt(1,id);
-			ps.setString(2, id2);
-			ResultSet resultSet = ps.executeQuery();
-			
-			if(resultSet.next()){
-				if(resultSet.getString(4).contentEquals("epargne")) {
-					Account= new CompteEpargne(resultSet.getInt(1),resultSet.getDate(2),resultSet.getInt(3),resultSet.getString(4),resultSet.getInt(5),resultSet.getInt(7));	
-					
-			}else if(resultSet.getString(4).contentEquals("courant")) {
-			
-				
-				Account= new CompteCourant(resultSet.getInt(1),resultSet.getDate(2),resultSet.getInt(3),resultSet.getString(4),resultSet.getInt(5),resultSet.getInt(6));
-			}
-			}
-		
-		} catch (SQLException e) {
-			System.out.println("not exist");
-			//e.printStackTrace();
-		}		
-		return Account;
-	}
+
 	@Override
 	public Accounts find(int id) {
-		String strE = "select * from T_Accounts  inner join T_Users on T_Users.IdCust=T_Accounts.IdCust where NumCt=?";
+		String strE = "select * from T_Accounts  where NumCt=?";
 		
 		PreparedStatement ps;
 		PreparedStatement ps1;

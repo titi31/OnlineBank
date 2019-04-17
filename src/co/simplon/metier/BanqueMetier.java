@@ -14,13 +14,17 @@ public class BanqueMetier implements IBanqueMetier {
 	private int day  ;
 	public static ArrayList<Operations> listOp=new ArrayList<Operations>();
 	static AccountDao Account=new AccountDao();
-
+	private int numAccount;
+	private double balance;
 	
 	public Accounts consulterAccounts(int code) {
 		//System.out.println("Balance: "+Accounts.getBalance()+"compte :"+Account.find(Accounts.getNumCt()));
-		Account.find(code);
-		Accounts account = null; 
-		return account;
+		Accounts account=new Accounts(code,1);
+		numAccount=account.getNumCt();
+		balance=account.getBalance();
+		return Account.find(account.getNumCt());
+		//Accounts account = null; 
+		//return account;
 		
 	}
 	

@@ -73,8 +73,5 @@ public class Accounts {
         return "NumCt: " + NumCt + "<br> DateCreation: " + DateCreation +"<br> type: "+type+ "<br> Balance: "+Balance + "<br> IdCust: " + IdCust+"<br>";
     }
 
-	private String DateCreation(String string, int i, int idCust2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

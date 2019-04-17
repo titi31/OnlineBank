@@ -18,10 +18,8 @@
  <!--     <%   out.println( "        <h2> " + new Date() + "</h2>" ); %>  -->
         
         <form method='POST' action='controller'>
-        <label for='txtLogin'>Login :</label>
-        <input id='txtLogin' name='txtLogin' type='text' value=${login} autofocus /><br/>
-         <label for='txtPassword'>Password :</label>
-        <input name='txtPassword' type='password' value=${pass} /><br/>
+        <label  for='txtLogin'>Login :</label>	     <input name='txtLogin'    type='text' value=${login} ><br/>
+         <label for='txtPassword'>Password :</label> <input name='txtPassword' type='password' value=${password} /><br/>
          <br/>
         <input name='btnConnect' type='submit' value='envoyer' class='bouton' /><br/>
         </form>

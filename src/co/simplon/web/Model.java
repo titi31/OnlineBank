@@ -21,94 +21,60 @@ import co.simplon.metier.BanqueMetier;
  */
 @WebServlet("/model")
 public class Model extends HttpServlet {
+	private BanqueMetier banqueMetier = null;
 	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void init() throws ServletException {
-		Dao.init( this.getServletContext() );
-	}  
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Model() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+		//Dao.init(this.getServletContext());
+		BanqueMetier banqueMetier = new BanqueMetier();
+	}
+
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		 String login = request.getParameter( "txtLogin" );
-         String password = request.getParameter( "txtPassword" );
-         HttpSession session = request.getSession( true );
-         session.setAttribute( "login", login );
-         session.setAttribute( "pass", password );
-   
-		response.setContentType("text/html");
-		//PrintWriter out=response.getWriter();
-		  request.getRequestDispatcher("/comptes.html").forward(request, response);
-		/*out.println("<html>");
-		out.println("<head>");
-		out.println("<title>compte</title><meta charset='utf-8'>");
-		out.println(" <link rel='stylesheet' type='text/css' href='styles.css' />");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<h1>Bonjour "+login+"</h1>");
-		out.println("<form action='model' method='post'>");
-		out.println("<input name='txtLogin'  type='hidden' value='"+login+"'>");
-		out.println("<input name='txtPassword' type='hidden' value='"+password+"'>");
-		out.println("<div id='blockc'><h2 id='consul'>Consultation d'un compte</h2>");
-		out.println("<label>Code Compte</label><input name='code' type='number'>");
-		out.println("<input type='submit' value='ok' class='bouton' ></div>");
-		out.println("</form>");
-		out.println("</body>");
-		out.println("</html>");*/
+	public Model() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		 String login = request.getParameter( "txtLogin" );
-         String password = request.getParameter( "txtPassword" );
-         String code=request.getParameter("codeCompte");
-         
-         
-         UserDao cd1=new UserDao();
-         AccountDao cd=new AccountDao();
- 		response.setContentType("text/html");
- 		PrintWriter out=response.getWriter();
- 		User c1=new User(login,password);
- 		 HttpSession session = request.getSession( true );
- 		 
- 		 //je dois utiliser banqueMetier
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
- 		 BanqueMetier banqueMetier = new BanqueMetier();
-		  
-		  Accounts compte = banqueMetier.consulterAccounts(10);
-		  
-		//  banqueMetier.listOperations(compte.get)
-		 
- 		 
- 		request.getRequestDispatcher("/comptes.html").forward(request, response);
- 		 
- 		/*if(cd.afficheC(Integer.parseInt(code),login)!=null) {
- 			doGet(request, response);
- 			//out.println("<div id='blocki'><h2 id='info'>Informations sur le compte</h2>");
- 		//	out.println(cd.find(Integer.parseInt(code)));
- 			//out.println("</div>");
- 			session.setAttribute("codeCompte","");
- 			
- 		}else {
- 			doGet(request, response);
- 			out.println("<div id='blocki'><h2 id='info'>Informations sur le compte</h2>");
- 			out.println("compte introuvable");
- 			out.println("</div>");
- 			
- 		}*/
+		request.getRequestDispatcher("/vue.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String code = request.getParameter("codeCompte");
+
+		BanqueMetier banqueMetier = new BanqueMetier();
+
+		Accounts compte = banqueMetier.consulterAccounts(Integer.parseInt(code));
+
+		if (compte != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("codeCompte", compte.getIdCust());
+			session.setAttribute("compte", compte);
+			//session.setAttribute("balance", compte.getBalance());
+			//session.setAttribute("numAccount", compte.getNumCt());
+			request.getRequestDispatcher("/vue.jsp").forward(request, response);
+		} else {
+			HttpSession session = request.getSession();
+			session.setAttribute("compte", null);
+			session.setAttribute("error", "compte introuvable");
+			request.getRequestDispatcher("/vue.jsp").forward(request, response);
+		}
 	}
 
 }
