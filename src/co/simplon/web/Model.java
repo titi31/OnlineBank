@@ -55,7 +55,6 @@ public class Model extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String code = request.getParameter("codeCompte");
 
 		BanqueMetier banqueMetier = new BanqueMetier();
@@ -66,13 +65,14 @@ public class Model extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("codeCompte", compte.getIdCust());
 			session.setAttribute("compte", compte);
+			
 			//session.setAttribute("balance", compte.getBalance());
 			//session.setAttribute("numAccount", compte.getNumCt());
 			request.getRequestDispatcher("/vue.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("compte", null);
-			session.setAttribute("error", "compte introuvable");
+			session.setAttribute("errorMessage", "compte introuvable");
 			request.getRequestDispatcher("/vue.jsp").forward(request, response);
 		}
 	}

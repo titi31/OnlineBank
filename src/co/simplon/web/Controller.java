@@ -62,6 +62,8 @@ public class Controller extends HttpServlet {
 		if (user != null) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("compte", null);
+			session.setAttribute("ConnectedUser", user);
+			session.setAttribute("login", login);
 			request.getRequestDispatcher("/vue.jsp").forward(request, response);
 
 		} else
