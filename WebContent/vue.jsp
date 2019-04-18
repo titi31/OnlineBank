@@ -8,10 +8,12 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="bootstrap.css" />
-		<title>Banque en Ligne</title>
+		<title>Espace Compte | Banque Populaire</title>
 	</head>
 
 <body>
+
+<img class="logo" src="BanquePopulaire.png">
 
 	<%
         	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -23,7 +25,7 @@
 			<div class="navbar navbar-inverse ">
 				<div class="container-fluid">
 					<ul class="nav navbar-nav">
-						<li> <a> Welcome ${connectedUser.login} </a> </li>
+						<li> <a> Bienvenue ${login} sur votre compte.</a> </li>
 								
 					</ul>
 					<ul class="nav navbar-nav navbar-right" >
@@ -54,7 +56,7 @@
 				<div class="panel panel-primary">
 					<div class="panel panel-heading">Informations sur le compte</div>
 					<div class="panel-body">
-					
+						
 						<div>	<label>Code compte : </label> ${compte.getNumCt()}		</div>
 						<div>	<label>Solde : </label> ${compte.getBalance()}		</div>
 						<div>	<label>Date création : </label> ${compte.getDateCreation()}	</div>						
@@ -77,10 +79,56 @@
 	
 		</div>
 	
-		
-	</div>
-	<th:if test="${not empty compte}">
-	<div class="panel panel-primary">
+		<th:if test="${not empty compte}">
+			<div class="col-md-6">
+				<th:if test="${connectedUser['class'].simpleName eq 'Admin'}">
+					<div class="panel panel-primary">
+						<div class="panel panel-heading">Opérations sur le compte</div>
+																										 
+							<div class="panel-body">
+								<form method="post" action="saveOperation">
+									<div>
+										<label> Compte </label>
+										<input type="hidden" name="codeCompte" value="${codeCompte}">
+										<label> ${codeCompte} </label> 												
+									</div>											
+									
+									<div>
+										<input type = "radio" name="typeOperation" value="versement" checked="checked" 
+												onchange="document.getElementById('forVirement').style.display='none'" />
+										<label>Versement</label>
+										
+										<input type = "radio" name="typeOperation" value="retrait" 
+												onchange="document.getElementById('forVirement').style.display='none'" />
+										<label>Retrait</label>
+										
+										<input type = "radio" name="typeOperation" value="virement" 
+												onchange="document.getElementById('forVirement').style.display='block'" />
+										<label>Virement</label>
+									</div>
+									
+									<div id="forVirement" style="display:none">
+										<label >Vers : </label>
+										<input type="text" name="codeCompteDest">
+									</div>
+									
+									<div>
+										<label>Montant : </label>
+										<input type="text" name="montant">
+									</div>
+									
+									<div class="errorMsg">${errorMsg}</div>
+									
+									<div>
+										<button type="submit" class="btn btn-primary"> Save </button>
+									</div>
+									
+								</form>
+							</div>													
+					</div>
+				</th:if>
+				
+				<div class="panel panel-primary">
 					<div class="panel panel-heading">Liste des opérations</div>
 					<div class="panel-body">
 						<table class="table table-striped">
@@ -93,7 +141,7 @@
 							<th:forEach items="#{listOperations}" var="line">							
 								<tr>
 									<td> ${line.getNumOp()} </td>
-									<td> ${line['class'].simpleName} </td>
+									<td> ${line.getType()} </td>
 									<td> ${line.getDateOp()} </td>
 									<td> ${line.getAmount()} </td>
 								</tr>

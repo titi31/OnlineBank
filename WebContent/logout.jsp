@@ -11,12 +11,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Log out screen</title>
+<title>Déconnecté | Banque Populaire</title>
 </head>
 <body>
 
 <body>
-        <h1>LOG OUT PAGE</h1>
+        <h1>Vous êtes bien déconnecté ${connectedUser.login}</h1>
         
         <%
         	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -24,7 +24,7 @@
         	response.setDateHeader("Expires", 0); // Proxies.
         	
         	User user = (User)session.getAttribute("ConnectedUser");
-        	String str = "log out "; 
+        	String str = "On se revoit bientôt ? ;)"; 
         	//if(user.getLogin() != null)	str += user.getLogin();        	
         	
         	if(session.getAttribute("ConnectedUser") != null) {    	

@@ -46,7 +46,8 @@ public class Model extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+		session.getAttribute("login");
 		request.getRequestDispatcher("/vue.jsp").forward(request, response);
 	}
 
@@ -56,6 +57,7 @@ public class Model extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		try {
 		String code = request.getParameter("codeCompte");
 
 		BanqueMetier banqueMetier = new BanqueMetier();
@@ -77,6 +79,11 @@ public class Model extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("compte", null);
 			session.setAttribute("listOperations", null);
+			session.setAttribute("errorMessage", "compte introuvable");
+			request.getRequestDispatcher("/vue.jsp").forward(request, response);
+		}
+		}catch(java.lang.NumberFormatException e) {
+			HttpSession session = request.getSession();
 			session.setAttribute("errorMessage", "compte introuvable");
 			request.getRequestDispatcher("/vue.jsp").forward(request, response);
 		}

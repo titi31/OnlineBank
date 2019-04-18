@@ -6,12 +6,12 @@ h1 {
 	color: white;
 }
 
-img{
+/* img{
 display:block;
 width:auto;
 margin-left:auto;
 margin-right:auto;
-}
+} */
 
 label {
 	display: inline-block;
@@ -20,7 +20,7 @@ label {
 }
 
 body {
-background-image: url("https://www.numerama.com/content/uploads/2017/04/earth-google.jpeg");
+  background-image: url("BACKGROUND-GRIS-min.jpg") ;
   margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
   transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
 }
@@ -28,14 +28,22 @@ background-image: url("https://www.numerama.com/content/uploads/2017/04/earth-go
 .bouton {
 	padding:6px 0 6px 0;
 	font:bold 13px Arial;
-	background:#478bf9;
+	background:#1C1153;
 	color:#fff;
 	border-radius:2px;
 	width:100px;
 	border:none;
 }
 
+/* label {
+	color: white;
+} */
 
+.logo {
+	img {
+	width: 200px;
+	height: 150px;
+}
 
 /* form starting stylings ------------------------------- */
 
