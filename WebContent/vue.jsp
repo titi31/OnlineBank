@@ -79,6 +79,31 @@
 	
 		
 	</div>
+	<th:if test="${not empty compte}">
+	<div class="panel panel-primary">
+					<div class="panel panel-heading">Liste des opérations</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<tr>
+								<th>Numéro</th>
+						 		<th>Type</th>
+								<th>Date</th>
+								<th>Montant</th>
+							</tr>
+							<th:forEach items="#{listOperations}" var="line">							
+								<tr>
+									<td> ${line.getNumOp()} </td>
+									<td> ${line['class'].simpleName} </td>
+									<td> ${line.getDateOp()} </td>
+									<td> ${line.getAmount()} </td>
+								</tr>
+							</th:forEach>
+						</table>
+					</div>
+				</div>
+			</div>
+		</th:if>
+	</div>
 </body>
 
 </html>

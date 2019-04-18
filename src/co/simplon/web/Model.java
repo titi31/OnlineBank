@@ -15,7 +15,8 @@ import co.simplon.dao.UserDao;
 import co.simplon.entities.Accounts;
 import co.simplon.entities.User;
 import co.simplon.metier.BanqueMetier;
-
+import java.util.ArrayList;
+import co.simplon.entities.Operations;
 /**
  * Servlet implementation class Model
  */
@@ -60,18 +61,22 @@ public class Model extends HttpServlet {
 		BanqueMetier banqueMetier = new BanqueMetier();
 
 		Accounts compte = banqueMetier.consulterAccounts(Integer.parseInt(code));
-
+		
 		if (compte != null) {
+			ArrayList<Operations> line=banqueMetier.listOperations(Integer.parseInt(code));
 			HttpSession session = request.getSession();
 			session.setAttribute("codeCompte", compte.getIdCust());
 			session.setAttribute("compte", compte);
-			
+			session.setAttribute("listOperations",line );
 			//session.setAttribute("balance", compte.getBalance());
 			//session.setAttribute("numAccount", compte.getNumCt());
+			
 			request.getRequestDispatcher("/vue.jsp").forward(request, response);
+			
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("compte", null);
+			session.setAttribute("listOperations", null);
 			session.setAttribute("errorMessage", "compte introuvable");
 			request.getRequestDispatcher("/vue.jsp").forward(request, response);
 		}

@@ -1,5 +1,6 @@
 package co.simplon.dao;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +10,30 @@ import java.sql.SQLException;
 import co.simplon.entities.Accounts;
 import co.simplon.entities.Operations;
 public class OperationDao extends Dao<Operations>{
+	static ArrayList<Operations>  list=new ArrayList<Operations>();
+	public ArrayList<Operations> listOperations(int id) {	
+		list=new ArrayList<Operations>();
+		String str = "select * from T_Operations where NumCt=?";
+		PreparedStatement ps;
+		Operations operation = null;
+		try(Connection connection = DriverManager.getConnection( dbURL, dbLogin, dbPassword )) {
+			ps = connection.prepareStatement(str);
+			ps.setInt(1,id);
+			ResultSet resultSet = ps.executeQuery();
+			if(resultSet.next()){		
+				operation = new Operations(resultSet.getInt(1),resultSet.getString(2),resultSet.getInt(3),resultSet.getDate(4),resultSet.getInt(5));
+				list.add(operation);
+				while(resultSet.next()) {
+					operation = new Operations(resultSet.getInt(1),resultSet.getString(2),resultSet.getInt(3),resultSet.getDate(4),resultSet.getInt(5));
+					list.add(operation);
+				}
+					
+				}
+		} catch (SQLException e) {
+			//e.printStackTrace();
+		}		
+		return list;						
+	}
 	public Operations find(int id) {	
 		String str = "select * from T_Operations where NumOp=?";
 		PreparedStatement ps;
@@ -17,9 +42,13 @@ public class OperationDao extends Dao<Operations>{
 			ps = connection.prepareStatement(str);
 			ps.setInt(1,id);
 			ResultSet resultSet = ps.executeQuery();
-			if(resultSet.next()){				
+			if(resultSet.next()){		
+				
 				operation = new Operations(resultSet.getInt(1),resultSet.getString(2),resultSet.getInt(3),resultSet.getDate(4),resultSet.getInt(5));
-			}
+				
+					
+					
+				}
 		} catch (SQLException e) {
 			//e.printStackTrace();
 		}		

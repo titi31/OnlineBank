@@ -11,10 +11,10 @@ import java.util.Date;
 import co.simplon.entities.CompteCourant;
 import co.simplon.entities.CompteEpargne;
 public class AccountDao extends Dao<Accounts> {
-
+	
 	@Override
 	public Accounts find(int id) {
-		String strE = "select * from T_Accounts  where NumCt=?";
+		String strE = "select * from T_Accounts where NumCt=?";
 		
 		PreparedStatement ps;
 		PreparedStatement ps1;

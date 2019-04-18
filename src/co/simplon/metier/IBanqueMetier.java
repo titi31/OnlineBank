@@ -8,7 +8,7 @@ public interface IBanqueMetier {
 	public void retirer(Accounts Accounts,int argent);
 	public  void verser(Accounts Accounts,int argent);
 	public  void virement(Accounts Accounts1,Accounts Accounts2,int argent,int NumCt);
-	public  ArrayList<Operations> listOperations(Accounts Accounts);
+	public  ArrayList<Operations> listOperations(int code);
 		//ArrayList<Operations> list=new ArrayList<Operations>();
 		//return list;
 //	}

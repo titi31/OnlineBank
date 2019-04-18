@@ -16,12 +16,13 @@ public class BanqueMetier implements IBanqueMetier {
 	static AccountDao Account=new AccountDao();
 	private int numAccount;
 	private double balance;
-	
+	static OperationDao operations=new OperationDao();
 	public Accounts consulterAccounts(int code) {
 		//System.out.println("Balance: "+Accounts.getBalance()+"compte :"+Account.find(Accounts.getNumCt()));
 		Accounts account=new Accounts(code,1);
 		numAccount=account.getNumCt();
 		balance=account.getBalance();
+		
 		return Account.find(account.getNumCt());
 		//Accounts account = null; 
 		//return account;
@@ -59,7 +60,7 @@ public class BanqueMetier implements IBanqueMetier {
 	public void virement(Accounts Accounts1,Accounts Accounts2,int argent,int NumCt) {
 		double Balance1=Accounts1.getBalance()-argent;
 		double Balance2=Accounts2.getBalance()+argent;
-		
+		//numOperation
 		Accounts1.setBalance(Balance1);
 		Account.update(Accounts1);
 		Accounts2.setBalance(Balance2);
@@ -70,10 +71,27 @@ public class BanqueMetier implements IBanqueMetier {
 		//listOp.add(virement);
 		
 	}
-	public ArrayList<Operations> listOperations(Accounts Accounts){
+	public ArrayList<Operations> listOperations(int code){
+		ArrayList<Operations> list = new ArrayList<Operations>();
 		
-		
-		return listOp;
+		//je dois parcourir ma table des operations
+		// et pour chaque occurence dans ma table, je crée un objet operation dans lequel j'insère les bonnes infos
+		//je le rajoute enfin a ma list
+		//je renvoi ma liste
+		Accounts account=new Accounts(code,1);
+		OperationDao operation=new OperationDao();
+		//Operations op=new Operations(code);
+		if(Account.find(account.getNumCt())!=null) {
+			//list=new ArrayList<Operations>();
+			
+			list.addAll(operation.listOperations(code));
+			
+			account.setListOperations(list);
+			
+		}
+		else
+			list=null;
+		return list;
 	}
 
 }

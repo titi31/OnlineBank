@@ -1,13 +1,25 @@
 package co.simplon.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import co.simplon.entities.*;
 public class Accounts {
     private int NumCt;
     private Date DateCreation;
     private int Balance;
     private int IdCust;
-    private String type;
+    public static ArrayList<Operations> getListOperations() {
+		return ListOperations;
+	}
+	public static void setListOperations(ArrayList<Operations> listOperations) {
+		ListOperations = listOperations;
+	}
+
+
+
+	private String type;
     private int NumCt2;
+    public static ArrayList<Operations> ListOperations=new ArrayList<Operations>();
     protected static Customers Customers;
     public Accounts(int numCpte, Date date,int Balance,String type, int IdCust) {
         this.NumCt = numCpte;
